@@ -1,13 +1,22 @@
 import React from 'react';
 import image from '../images/house-location-pin.svg'
+import Card from './Card'
+import data from './data/Data'
 
 class App extends React.Component {
 
   constructor(props){
-    super(props);
+		super(props);
+		
+		this.state = {
+			properties: data.properties,
+			activeProperty: data.properties[0]
+		}
 
   }
   render(){
+		const { properties } = this.state;
+
     return (
       <div>
         {/* listings - Start */}
@@ -91,60 +100,12 @@ class App extends React.Component {
           <div className="cards container">
             <div className="cards-list row ">
               
-              {/* Property card - Start */}
-              <div id="card-0" className="card col-sm-12 col-md-6 col-lg-4 is-active">
-                <img src="https://ihatetomatoes.net/demos/_rw/01-real-estate/tn_property01.jpg" alt="Singer" />
-                <p className="price">$937,180</p>
-                <div className="details">
-                  <span className="index">1</span>
-                  <p className="location">
-                    Singer<br />914 Argyle Road
-                  </p>
-                  <ul className="features">
-                    <li className="icon-bed">2<span>bedrooms</span></li>
-                    <li className="icon-bath">2<span>bathrooms</span></li>
-                    <li className="icon-car">2<span>parking spots</span></li>
-                  </ul>
-                </div>
-              </div>
-              {/* Property card - End */}
+							{
+								properties.map(property => {
+									return <Card property={property} />
+								})
+							}
 
-              {/* Property card - Start */}
-              <div id="card-1" className="card col-sm-12 col-md-6 col-lg-4">
-                <img src="https://ihatetomatoes.net/demos/_rw/01-real-estate/tn_property02.jpg" alt="Machias" />
-                <p className="price">$937,180</p>
-                <div className="details">
-                  <span className="index">2</span>
-                  <p className="location">
-                    Machias<br />255 Raleigh Place
-                  </p>
-                  <ul className="features">
-                    <li className="icon-bed">2<span>bedrooms</span></li>
-                    <li className="icon-bath">1<span>bathrooms</span></li>
-                    <li className="icon-car">0<span>parking spots</span></li>
-                  </ul>
-                </div>
-              </div>
-              {/* Property card - End */}
-
-              {/* Property card - Start */}
-              <div id="card-1" className="card col-sm-12 col-md-6 col-lg-4">
-                <img src="https://ihatetomatoes.net/demos/_rw/01-real-estate/tn_property03.jpg" alt="Bend" />
-                <p className="price">$937,180</p>
-                <div className="details">
-                  <span className="index">3</span>
-                  <p className="location">
-                    Bend<br />580 Amber Street
-                  </p>
-                  <ul className="features">
-                    <li className="icon-bed">3<span>bedrooms</span></li>
-                    <li className="icon-bath">2<span>bathrooms</span></li>
-                    <li className="icon-car">0<span>parking spots</span></li>
-                  </ul>
-                </div>
-              </div>
-              {/* Property card - End */}
-              
             </div>
           </div>
         </div>
