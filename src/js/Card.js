@@ -22,8 +22,8 @@ const Card = ({property, activeProperty}) => {
 }
 
 Card.propTypes = {
-	property: PropTypes.object.isRequire,
-	activeProperty: PropTypes.object.isRequire
+	property: PropTypes.object.isRequired,
+	activeProperty: PropTypes.object.isRequired
 };
 
 export default Card;
