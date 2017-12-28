@@ -15,12 +15,24 @@ class GoogleMap extends React.Component {
 		const { markers } = this.state;
 
 		// hide all other info windows
+		this.hideAll();
+
+		// show info window of new active property
+		this.showIW(index);
+	}
+
+	showIW(index) {
+		const { markers } = this.state;
+
+		markers[index] && markers[index].iw.open(this.map, markers[index]);
+	}
+
+	hideAll() {
+		const { markers } = this.state;
+
 		markers.forEach(marker => {
 			marker.iw.close();
 		})
-
-		// show info window of new active property
-		markers[index] && markers[index].iw.open(this.map, markers[index]);
 	}
 
 	componentDidMount() {
@@ -72,19 +84,17 @@ class GoogleMap extends React.Component {
 			this.marker.addListener('click', function() {
 				
 				// hide all other info boxes on click
-				markers.forEach(marker => {
-					marker.iw.close();
-				})
+				this.hideAll();
 
 				// set active property onto the state
 				setActiveProperty(property, true);
-			});
+			}.bind(this));  // important to bind this
 
 			// push this marker to the markers array on the state
 			markers.push(this.marker);
 
 			// show active property info window
-			markers[activePropertyIndex] && markers[activePropertyIndex].iw.open(this.map, markers[activePropertyIndex]);
+			this.showIW(activePropertyIndex);
 		})
 	}
 
