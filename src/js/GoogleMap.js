@@ -10,15 +10,24 @@ class GoogleMap extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const { activeProperty, filteredProperties } = nextProps;
+		const { activeProperty, filteredProperties, isFiltering } = nextProps;
 		const { latitude, longitude, index } = activeProperty;
 		const { markers } = this.state;
 
 		// hide all other info windows
-		this.hideAll();
+		
 
-		// show info window of new active property
-		filteredProperties.length !== 0 && this.showIW(index);
+		
+		// filteredProperties.length !== 0 && this.showIW(index);
+
+		if (isFiltering && filteredProperties.length === 0) {
+			this.hideAll();
+		} else {
+			this.hideAll();
+			
+			// show info window of new active property
+			this.showIW(index);
+		}
 	}
 	
 	componentDidUpdate() {
