@@ -33,11 +33,24 @@ class App extends React.Component {
 
 	filterProperties = () => {
 		const { properties, filterBedrooms } = this.state;
-    const isFiltering = filterBedrooms !== 'any'; 
-    console.log(isFiltering + filterBedrooms);
+    const isFiltering = filterBedrooms !== 'any';
+
+		const getFilteredProperties = (properties) => {
+			const filteredProperties = [];
+
+			properties.map(property => {
+				const { bedrooms } = property;
+				const match = bedrooms === parseInt(filterBedrooms) || filterBedrooms === 'any';
+
+				// if the match is true push this property to filteredProperties
+				match && filteredProperties.push(property);
+			})
+
+			return filteredProperties;
+		}
 
 		this.setState({
-			filteredProperties: ['some data'],
+			filteredProperties: getFilteredProperties(properties),
 			isFiltering
 		})
 
