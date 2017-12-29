@@ -15,6 +15,8 @@ class App extends React.Component {
 			activeProperty: data.properties[10],
 			filterIsVisible: false,
 			filterBedrooms: 'any',
+			filterProperties: [],
+			isFiltering: false,
 		}
 	}
 
@@ -24,7 +26,21 @@ class App extends React.Component {
 
 		this.setState({
 			[name]: value
+		}, function() {
+			this.filterProperties();
 		})
+	}
+
+	filterProperties = () => {
+		const { properties, filterBedrooms } = this.state;
+    const isFiltering = filterBedrooms !== 'any'; 
+    console.log(isFiltering + filterBedrooms);
+
+		this.setState({
+			filteredProperties: ['some data'],
+			isFiltering
+		})
+
 	}
 
 	toggleFilter = (e) => {
