@@ -51,6 +51,7 @@ class App extends React.Component {
 
 		this.setState({
 			filteredProperties: getFilteredProperties(properties),
+			activeProperty: getFilteredProperties(properties)[0],
 			isFiltering
 		})
 
@@ -81,7 +82,8 @@ class App extends React.Component {
 	}
 
   render(){
-		const { properties, activeProperty, filterIsVisible } = this.state;
+		const { properties, activeProperty, filterIsVisible, filteredProperties, isFiltering } = this.state;
+		const propertiesList = isFiltering ? filteredProperties : properties;
 
     return (
       <div>
@@ -98,7 +100,7 @@ class App extends React.Component {
             <div className="cards-list row ">
               
 							{
-								properties.map(property => {
+								propertiesList.map(property => {
 									return <Card
 										key={property._id}
 										property={property}
@@ -114,9 +116,11 @@ class App extends React.Component {
         {/* listings - End */}
 
 				<GoogleMap
-					properties={properties}
-					activeProperty={activeProperty}
-					setActiveProperty={this.setActiveProperty}
+					properties={properties} 
+					activeProperty={activeProperty} 
+					setActiveProperty={this.setActiveProperty} 
+					filteredProperties={filteredProperties}
+					isFiltering={isFiltering}
 				/>
 
       </div>

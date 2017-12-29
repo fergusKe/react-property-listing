@@ -20,7 +20,29 @@ class GoogleMap extends React.Component {
 		// show info window of new active property
 		this.showIW(index);
 	}
+	
+	componentDidUpdate() {
+		const { filteredProperties, isFiltering } = this.props;
+		const { markers } = this.state;
 
+		markers.forEach(marker => {
+			const { property } = marker;  // what is the associated property
+
+			if (isFiltering) {
+				// show markers of filtered properties
+				if (filteredProperties.includes(property)) {
+					markers[property.index].setVisible(true);
+				} else {
+					// hide all other markers
+					markers[property.index].setVisible(false);
+				}
+			} else {
+				// show all markers
+				markers[property.index].setVisible(true);
+			}
+		})
+	}
+	
 	showIW(index) {
 		const { markers } = this.state;
 
@@ -71,7 +93,8 @@ class GoogleMap extends React.Component {
 					origin: new google.maps.Point(0, -15),
 					// The anchor for this image is the base of the cross (11, 52).
 					anchor: new google.maps.Point(11, 52)
-				}
+				},
+				property
 			});
 
 			// create info window for each marker
@@ -110,6 +133,9 @@ class GoogleMap extends React.Component {
 GoogleMap.propTypes = {
 	properties: PropTypes.array.isRequired,
 	setActiveProperty: PropTypes.func.isRequired,
+	activeProperty: PropTypes.object.isRequired,
+	filteredProperties: PropTypes.array,
+	isFiltering: PropTypes.bool.isRequired,
 };
 
 export default GoogleMap;
