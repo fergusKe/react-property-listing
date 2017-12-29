@@ -14,7 +14,17 @@ class App extends React.Component {
 			properties: data.properties,
 			activeProperty: data.properties[10],
 			filterIsVisible: false,
+			filterBedrooms: 'any',
 		}
+	}
+
+	handleFilterChange = (e) => {
+		const target = e.target;
+		const { value, name } = target;
+
+		this.setState({
+			[name]: value
+		})
 	}
 
 	toggleFilter = (e) => {
@@ -51,7 +61,8 @@ class App extends React.Component {
 
           <Header
 						filterIsVisible={filterIsVisible}
-						toggleFilter={this.toggleFilter}	
+						toggleFilter={this.toggleFilter}
+						handleFilterChange={this.handleFilterChange}	
 					/>
 
           <div className="cards container">
