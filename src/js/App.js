@@ -68,6 +68,21 @@ class App extends React.Component {
 			filterIsVisible: !this.state.filterIsVisible
 		})
 	}
+
+	clearFilter = (e, form) => {
+		e.preventDefault();
+
+		this.setState({
+			activeProperty: this.state.properties[0],
+			filterBedrooms: 'any',
+			filterBathrooms: 'any',
+			filterCars: 'any',
+			filterProperties: [],
+			isFiltering: false,
+		})
+
+		form.reset();
+	}
 	
 	setActiveProperty = (property, scroll) => {
 		const { index } = property;
@@ -98,6 +113,7 @@ class App extends React.Component {
           <Header
 						filterIsVisible={filterIsVisible}
 						toggleFilter={this.toggleFilter}
+						clearFilter={this.clearFilter}
 						handleFilterChange={this.handleFilterChange}	
 					/>
 
