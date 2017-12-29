@@ -10,7 +10,7 @@ class GoogleMap extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const { activeProperty } = nextProps;
+		const { activeProperty, filteredProperties } = nextProps;
 		const { latitude, longitude, index } = activeProperty;
 		const { markers } = this.state;
 
@@ -18,7 +18,7 @@ class GoogleMap extends React.Component {
 		this.hideAll();
 
 		// show info window of new active property
-		this.showIW(index);
+		filteredProperties.length !== 0 && this.showIW(index);
 	}
 	
 	componentDidUpdate() {
